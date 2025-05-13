@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RAV Leaderboard</title>
+  <style>
+    body { font-family: Arial; background: #111; color: white; padding: 2rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; border-bottom: 1px solid #444; text-align: left; }
+    th { background: #222; }
+  </style>
+</head>
+<body>
+  <h1>$RAV Top Trader Leaderboard</h1>
+  <table id="leaderboard">
+    <thead>
+      <tr><th>Rank</th><th>Wallet</th><th>Volume (SOL)</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function loadLeaderboard() {
+      const res = await fetch("leaderboard.json");
+      const data = await res.json();
+      const tbody = document.querySelector("#leaderboard tbody");
+      tbody.innerHTML = "";
+      data.forEach((entry, i) => {
+        const row = `<tr>
+          <td>#${i + 1}</td>
+          <td>${entry.wallet.slice(0, 6)}...${entry.wallet.slice(-4)}</td>
+          <td>${entry.volume_in_SOL}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    loadLeaderboard();
+    setInterval(loadLeaderboard, 60000);
+  </script>
+</body>
+</html>
