@@ -21,7 +21,7 @@ jobs:
         run: python convert_snapshot.py
 
     - name: Commit and Push walletlist.txt
-   run: |
+     run: |
     git config user.name "github-actions"
     git config user.email "actions@github.com"
     git add walletlist.txt
