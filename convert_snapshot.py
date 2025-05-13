@@ -1,0 +1,11 @@
+import csv
+
+with open("snapshot.csv", "r") as csvfile:
+    reader = csv.DictReader(csvfile)
+    wallets = [row["Owner"] for row in reader if "Owner" in row]
+
+with open("walletlist.txt", "w") as f:
+    for wallet in wallets:
+        f.write(wallet + "\n")
+
+print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
