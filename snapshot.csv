@@ -1,5 +1,3 @@
-import csv
-
 with open("snapshot.csv", "r") as csvfile:
     reader = csv.DictReader(csvfile)
 
