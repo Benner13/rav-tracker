@@ -6,7 +6,7 @@ import subprocess
 
 # CONFIGURATION
 TOKEN_MINT = "U4LQFLQKAziV92BGrH33wyVmGhicJhsfjxUdU3CcGFM"
-GITHUB_REPO = "https://ghp_DEIN_TOKEN_HIER@github.com/Benner13/rav-tracker.git"
+GITHUB_REPO = "https://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@github.com/Benner13/rav-tracker.git"
 LOCAL_DIR = "rav-tracker"
 CSV_FILE = "snapshot.csv"
 
