@@ -1,3 +1,11 @@
-Owner,Amount
-4XUgmdsmHg5omVcU6L5zbd2YrduDL7zEmW3tZxENd7Bj,100
-7kMkPkk8NVEJmreHzBRqWZsRZ4mppZcZgTjcRT6vBb7f,50
+import csv
+
+with open("snapshot.csv", "r") as csvfile:
+    reader = csv.DictReader(csvfile)
+    wallets = [row["Owner"] for row in reader if "Owner" in row]
+
+with open("walletlist.txt", "w") as f:
+    for wallet in wallets:
+        f.write(wallet + "\n")
+
+print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
