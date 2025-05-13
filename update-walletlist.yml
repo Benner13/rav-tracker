@@ -1,0 +1,46 @@
+
+name: Update Walletlist from Snapshot
+
+on:
+  push:
+    paths:
+      - snapshot.csv
+
+jobs:
+  update-walletlist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install --upgrade pip
+
+      - name: Convert snapshot to walletlist
+        run: |
+          python3 <<EOF
+import csv
+
+with open("snapshot.csv", "r") as csvfile:
+    reader = csv.DictReader(csvfile)
+    wallets = [row["Owner"] for row in reader if "Owner" in row]
+
+with open("walletlist.txt", "w") as f:
+    for wallet in wallets:
+        f.write(wallet + "\n")
+
+print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
+EOF
+
+      - name: Commit and Push walletlist.txt
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add walletlist.txt
+          git commit -m "Update walletlist from snapshot.csv" || echo "No changes to commit"
+          git push
