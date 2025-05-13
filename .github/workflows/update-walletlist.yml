@@ -8,6 +8,7 @@ on:
 jobs:
   update-walletlist:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -20,12 +21,10 @@ jobs:
       - name: Run walletlist converter
         run: python convert_snapshot.py
 
-    - name: Commit and Push walletlist.txt
-     run: |
-    git config user.name "github-actions"
-    git config user.email "actions@github.com"
-    git add walletlist.txt
-    git commit -m "Update walletlist from snapshot.csv" || echo "No changes to commit"
-    git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
-
-
+      - name: Commit and Push walletlist.txt
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add walletlist.txt
+          git commit -m "Update walletlist from snapshot.csv" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
