@@ -37,10 +37,13 @@ with open("walletlist.txt", "w") as f:
 print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
 EOF
 
-      - name: Commit and Push walletlist.txt
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add walletlist.txt
-          git commit -m "Update walletlist from snapshot.csv" || echo "No changes to commit"
-          git push
+    - name: Commit and Push walletlist.txt
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run: |
+    git config user.name "github-actions"
+    git config user.email "actions@github.com"
+    git add walletlist.txt
+    git commit -m "Update walletlist from snapshot.csv" || echo "No changes to commit"
+    git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
+
