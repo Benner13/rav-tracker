@@ -17,24 +17,18 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install dependencies
-        run: pip install --upgrade pip
-
       - name: Convert snapshot to walletlist
         run: |
-          python3 <<EOF
+          python3 -c "
 import csv
-
-with open("snapshot.csv", "r") as csvfile:
+with open('snapshot.csv', 'r') as csvfile:
     reader = csv.DictReader(csvfile)
-    wallets = [row["Owner"] for row in reader if "Owner" in row]
-
-with open("walletlist.txt", "w") as f:
+    wallets = [row['Owner'] for row in reader if 'Owner' in row]
+with open('walletlist.txt', 'w') as f:
     for wallet in wallets:
-        f.write(wallet + "\\n")
-
-print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
-EOF
+        f.write(wallet + '\n')
+print(f'walletlist.txt mit {len(wallets)} Einträgen erstellt.')
+"
 
       - name: Commit and Push walletlist.txt
         run: |
