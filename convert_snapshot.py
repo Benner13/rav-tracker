@@ -2,13 +2,12 @@ import csv
 
 with open("snapshot.csv", "r") as csvfile:
     reader = csv.DictReader(csvfile)
-    print("📌 Feldnamen gefunden:", reader.fieldnames)
 
-    wallets = []
-    for i, row in enumerate(reader):
-        print(f"🔹 Zeile {i+1}: {row}")
-        if row.get("holder"):
-            wallets.append(row["holder"])
+    if "holder" not in reader.fieldnames:
+        print(f"❌ Fehler: Spalte 'holder' nicht gefunden! Stattdessen gefunden: {reader.fieldnames}")
+        exit(1)
+
+    wallets = [row["holder"] for row in reader if row.get("holder")]
 
 with open("walletlist.txt", "w") as f:
     for wallet in wallets:
