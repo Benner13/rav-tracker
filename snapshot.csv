@@ -3,16 +3,14 @@ import csv
 with open("snapshot.csv", "r") as csvfile:
     reader = csv.DictReader(csvfile)
 
-    if "Owner" not in reader.fieldnames:
-        print(f"❌ Fehler: Spalte 'Owner' nicht gefunden! Stattdessen gefunden: {reader.fieldnames}")
+    if "holder" not in reader.fieldnames:
+        print(f"❌ Fehler: Spalte 'holder' nicht gefunden! Stattdessen gefunden: {reader.fieldnames}")
         exit(1)
 
-    wallets = [row["Owner"] for row in reader if row.get("Owner")]
+    wallets = [row["holder"] for row in reader if row.get("holder")]
 
 with open("walletlist.txt", "w") as f:
     for wallet in wallets:
         f.write(wallet + "\n")
 
 print(f"✅ walletlist.txt mit {len(wallets)} Einträgen erstellt.")
- 
- 
