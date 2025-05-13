@@ -12,4 +12,3 @@ print(f"walletlist.txt mit {len(wallets)} Einträgen erstellt.")
  
  
  
- 
