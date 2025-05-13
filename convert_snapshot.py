@@ -2,7 +2,7 @@ import csv
 
 with open("snapshot.csv", "r") as csvfile:
     reader = csv.DictReader(csvfile)
-    wallets = [row["Owner"] for row in reader if "Owner" in row]
+    wallets = [row["Owner"] for row in reader if row.get("Owner")]
 
 with open("walletlist.txt", "w") as f:
     for wallet in wallets:
